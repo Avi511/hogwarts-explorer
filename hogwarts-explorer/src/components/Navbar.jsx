@@ -8,8 +8,7 @@ function Navbar() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="bg-gradient-to-r from-[#050b1a] via-[#121d39] to-[#1e3a8a]
- text-white fixed w-full top-0 left-0 z-50 shadow-lg font-[Poppins]">
+    <nav className="bg-gradient-to-r from-[#000000] via-[#0a0a0a] to-[#1f1f1f] text-white fixed w-full top-0 left-0 z-50 shadow-lg">
       <div className="max-w-9xl mx-auto px-6 py-11 flex items-center justify-between md:justify-center">
         {/* Logo */}
         <div className="absolute left-6 md:left-10 flex items-center space-x-2">
@@ -47,7 +46,7 @@ function Navbar() {
         {/* Mobile Menu Button */}
         <button
           onClick={toggleMenu}
-          className="md:hidden hover:text-[#26ccff] hover:text-[#26ccff] transition absolute right-6"
+          className="md:hidden hover:text-[#26ccff] transition absolute right-6"
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
@@ -55,7 +54,7 @@ function Navbar() {
 
       {/* Mobile Dropdown */}
       <div
-        className={`md:hidden bg-gradient-to-r from-[#050b1a] via-[#162447] to-[#1e3a8a] overflow-hidden transition-all duration-500 ease-in-out ${
+        className={`md:hidden bg-gradient-to-r from-[#000000] via-[#0a0a0a] to-[#1f1f1f] overflow-hidden transition-all duration-500 ease-in-out ${
           isOpen ? "max-h-60 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
