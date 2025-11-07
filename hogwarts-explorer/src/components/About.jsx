@@ -1,63 +1,46 @@
 import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import AnimatedBackground from "./AnimatedBackground";
 
 function About() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [hogwartsData, setHogwartsData] = useState({
+    characterCount: 0,
+    spellCount: 0,
+    houses: []
+  });
 
   useEffect(() => {
     AOS.init({ duration: 1200, once: true });
-
-    const handleMouseMove = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+    
+    // Fetch Hogwarts data
+    const fetchHogwartsData = async () => {
+      try {
+        const response = await fetch('https://hp-api.onrender.com/api/characters');
+        const characters = await response.json();
+        
+        setHogwartsData({
+          characterCount: characters.length,
+          spellCount: 150, // Approximate number of spells
+          houses: ['Gryffindor', 'Slytherin', 'Hufflepuff', 'Ravenclaw']
+        });
+      } catch (error) {
+        console.log('Error fetching Hogwarts data:', error);
+        setHogwartsData({
+          characterCount: 200,
+          spellCount: 150,
+          houses: ['Gryffindor', 'Slytherin', 'Hufflepuff', 'Ravenclaw']
+        });
+      }
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    fetchHogwartsData();
   }, []);
 
   return (
-    <section
-      id="about"
-      className="relative min-h-screen flex flex-col justify-center items-center text-center text-white bg-black overflow-hidden"
-    >
-      {/* Black and Purple Gradient Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-black to-black"></div>
-      {/* Dark overlay with spotlight following cursor - matching Hero */}
+    <AnimatedBackground id="about">
       <div
-        className="absolute inset-0 transition-all duration-75 ease-out"
-        style={{
-          background: `radial-gradient(
-            600px circle at ${position.x}px ${position.y}px,
-            rgba(255,255,255,0.1) 0%,
-            rgba(0,0,0,0.95) 70%
-          )`,
-        }}
-      ></div>
-
-      {/* Subtle magical glow effect */}
-      <div className="absolute inset-0 opacity-30">
-        {Array.from({ length: 12 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full bg-white animate-pulse"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              width: `${Math.random() * 5 + 1}px`,
-              height: `${Math.random() * 5 + 1}px`,
-              animationDelay: `${Math.random() * 8}s`,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Additional Purple Glow Effect */}
-      <div className="absolute inset-0 bg-gradient-to-t from-purple-600/5 via-transparent to-purple-800/10"></div>
-
-      {/* Content */}
-      <div
-        className="relative z-10 max-w-3xl px-6"
+        className="max-w-3xl px-6 py-12"
         data-aos="fade-up"
         data-aos-delay="100"
       >
@@ -79,35 +62,37 @@ function About() {
           living legacy built on courage, friendship, and the pursuit of knowledge.
         </p>
 
+        {/* Dynamic Stats from API */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8" data-aos="fade-up" data-aos-delay="600">
+          <div className="text-center p-4">
+            <div className="text-2xl font-bold text-purple-400">{hogwartsData.characterCount}+</div>
+            <div className="text-sm text-gray-400">Characters</div>
+          </div>
+          <div className="text-center p-4">
+            <div className="text-2xl font-bold text-purple-400">{hogwartsData.spellCount}+</div>
+            <div className="text-sm text-gray-400">Spells</div>
+          </div>
+          <div className="text-center p-4">
+            <div className="text-2xl font-bold text-purple-400">4</div>
+            <div className="text-sm text-gray-400">Houses</div>
+          </div>
+          <div className="text-center p-4">
+            <div className="text-2xl font-bold text-purple-400">7</div>
+            <div className="text-sm text-gray-400">Books</div>
+          </div>
+        </div>
+
         <p
           className="text-lg md:text-xl text-gray-300 leading-relaxed mb-8"
           data-aos="fade-up"
-          data-aos-delay="600"
+          data-aos-delay="800"
         >
           Within its ancient stone walls, portraits move, staircases shift, and mysteries
           awaken with every sunrise. From enchanted classrooms to secret passageways,
           every corner holds a lesson that shapes not just wizards, but heroes.
         </p>
-
-        <p
-          className="text-lg md:text-xl text-gray-300 leading-relaxed"
-          data-aos="fade-up"
-          data-aos-delay="800"
-        >
-          Here, curiosity is power, and the magic you discover is only the beginning of your
-          own story.
-        </p>
-
-        {/* Optional: Add a button to match Hero section styling */}
-        <button
-          className="mt-8 px-8 py-3 border border-white text-white rounded-[20px] uppercase tracking-wider font-semibold transition-all duration-300 hover:bg-white hover:text-black shadow-[0_0_15px_#ffffff40] hover:shadow-[0_0_25px_#ffffff80]"
-          data-aos="zoom-in"
-          data-aos-delay="1000"
-        >
-          Learn More
-        </button>
       </div>
-    </section>
+    </AnimatedBackground>
   );
 }
 

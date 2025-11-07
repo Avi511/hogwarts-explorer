@@ -42,12 +42,14 @@ const Hero = () => {
           WELCOME TO HOGWARTS
         </h1>
         <p
-          className="text-lg md:text-xl mb-6 text-gray-200"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
-          Discover the world of magic, spells, and adventures in the wizarding universe.
-        </p>
+  className="text-lg md:text-xl mb-6 text-gray-200"
+  data-aos="fade-up"
+  data-aos-delay="200"
+>
+  Discover the world of magic, spells, and adventures in the wizarding universe. 
+  Uncover hidden mysteries, master powerful incantations, and join the epic journey 
+  that has captivated millions across the globe in this timeless tale of courage and wonder.
+</p>
         <button
           className="mt-2 px-8 py-3 border-1 border-white text-white rounded-[20px] uppercase tracking-wider font-semibold transition-all duration-3000 hover:bg-white hover:text-black shadow-[0_0_15px_#ffffff80] hover:shadow-[0_0_25px_#ffffffcc]"
           data-aos="zoom-in"
