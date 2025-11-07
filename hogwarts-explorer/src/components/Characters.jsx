@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from "react";
-import './Characters.css';
+import './css/Characters.css';
 import AOS from "aos";
 import "aos/dist/aos.css";
 import AnimatedBackground from "./AnimatedBackground";
@@ -57,7 +57,7 @@ function DataFetchingComponent() {
         >
           HOGWARTS CHARACTERS
         </h2>
-        <div className="characters-grid max-w-7xl mx-auto px-6">
+        <div className="characters-grid">
           {data?.slice(0, 10).map((character, index) => (
             <CharacterCard key={character.id || index} character={character} />
           ))}
@@ -97,6 +97,13 @@ function CharacterCard({ character }) {
           </div>
         )}
       </div>
+
+         <button
+          className="mt-2 px-8 py-3 border-1 border-white text-white rounded-[20px] uppercase tracking-wider font-semibold transition-all duration-3000 hover:bg-white hover:text-black shadow-[0_0_15px_#ffffff80] hover:shadow-[0_0_25px_#ffffffcc]"
+          data-aos="zoom-in"
+          data-aos-delay="400">
+          MORE
+        </button>
     </div>
   );
 }

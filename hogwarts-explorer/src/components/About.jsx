@@ -1,99 +1,55 @@
-import React, { useEffect, useState } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import AnimatedBackground from "./AnimatedBackground";
+import React, { useEffect, useState } from 'react';
 
-function About() {
-  const [hogwartsData, setHogwartsData] = useState({
-    characterCount: 0,
-    spellCount: 0,
-    houses: []
-  });
+function AnimatedBackground({ children, className = "" }) {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    AOS.init({ duration: 1200, once: true });
-    
-    // Fetch Hogwarts data
-    const fetchHogwartsData = async () => {
-      try {
-        const response = await fetch('https://hp-api.onrender.com/api/characters');
-        const characters = await response.json();
-        
-        setHogwartsData({
-          characterCount: characters.length,
-          spellCount: 150, // Approximate number of spells
-          houses: ['Gryffindor', 'Slytherin', 'Hufflepuff', 'Ravenclaw']
-        });
-      } catch (error) {
-        console.log('Error fetching Hogwarts data:', error);
-        setHogwartsData({
-          characterCount: 200,
-          spellCount: 150,
-          houses: ['Gryffindor', 'Slytherin', 'Hufflepuff', 'Ravenclaw']
-        });
-      }
+    const handleMouseMove = (e) => {
+      setPosition({ x: e.clientX, y: e.clientY });
     };
 
-    fetchHogwartsData();
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   return (
-    <AnimatedBackground id="about">
+    <section className={`relative min-h-screen flex flex-col justify-center items-center text-center text-white bg-black overflow-hidden ${className}`}>
+      
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-black to-purple-950/30"></div>
+
       <div
-        className="max-w-3xl px-6 py-12"
-        data-aos="fade-up"
-        data-aos-delay="100"
-      >
-        <h2
-          className="text-4xl md:text-5xl font-bold mb-6 tracking-widest drop-shadow-lg"
-          data-aos="zoom-in"
-          data-aos-delay="200"
-        >
-          ABOUT HOGWARTS
-        </h2>
+        className="absolute inset-0 transition-all duration-75 ease-out"
+        style={{
+          background: `radial-gradient(
+            600px circle at ${position.x}px ${position.y}px,
+            rgba(255,255,255,0.1) 0%,
+            rgba(0,0,0,0.95) 70%
+          )`,
+        }}
+      ></div>
 
-        <p
-          className="text-lg md:text-xl text-gray-300 leading-relaxed mb-8"
-          data-aos="fade-up"
-          data-aos-delay="400"
-        >
-          Step into a world where magic thrives, where every spell whispers history, and
-          every shadow hides a story untold. Hogwarts isn't just a school — it's a
-          living legacy built on courage, friendship, and the pursuit of knowledge.
-        </p>
-
-        {/* Dynamic Stats from API */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8" data-aos="fade-up" data-aos-delay="600">
-          <div className="text-center p-4">
-            <div className="text-2xl font-bold text-purple-400">{hogwartsData.characterCount}+</div>
-            <div className="text-sm text-gray-400">Characters</div>
-          </div>
-          <div className="text-center p-4">
-            <div className="text-2xl font-bold text-purple-400">{hogwartsData.spellCount}+</div>
-            <div className="text-sm text-gray-400">Spells</div>
-          </div>
-          <div className="text-center p-4">
-            <div className="text-2xl font-bold text-purple-400">4</div>
-            <div className="text-sm text-gray-400">Houses</div>
-          </div>
-          <div className="text-center p-4">
-            <div className="text-2xl font-bold text-purple-400">7</div>
-            <div className="text-sm text-gray-400">Books</div>
-          </div>
-        </div>
-
-        <p
-          className="text-lg md:text-xl text-gray-300 leading-relaxed mb-8"
-          data-aos="fade-up"
-          data-aos-delay="800"
-        >
-          Within its ancient stone walls, portraits move, staircases shift, and mysteries
-          awaken with every sunrise. From enchanted classrooms to secret passageways,
-          every corner holds a lesson that shapes not just wizards, but heroes.
-        </p>
+      {/* Subtle magical glow effect */}
+      <div className="absolute inset-0 opacity-30">
+        {Array.from({ length: 12 }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full bg-white animate-pulse"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              width: `${Math.random() * 5 + 1}px`,
+              height: `${Math.random() * 5 + 1}px`,
+              animationDelay: `${Math.random() * 8}s`,
+            }}
+          />
+        ))}
       </div>
-    </AnimatedBackground>
+
+      <div className="relative z-10 w-full flex flex-col justify-center items-center min-h-screen py-12">
+        {children}
+      </div>
+    </section>
   );
 }
 
-export default About;
+export default AnimatedBackground;
