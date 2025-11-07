@@ -19,25 +19,25 @@ function Navbar() {
         <div className="hidden md:flex space-x-10 text-[15px] custom-spacing font-medium tracking-wider">
           <a
             href="#home"
-            className="hover:text-[#26ccff] transition duration-200 uppercase"
+            className="hover:text-[#811cf4] transition duration-500 hover:scale-120 uppercase"
           >
             HOME
           </a>
           <a
             href="#about"
-            className="hover:text-[#26ccff] transition duration-200 uppercase"
+            className="hover:text-[#811cf4] transition duration-500 hover:scale-120 uppercase"
           >
             ABOUT
           </a>
           <a
             href="#characters"
-            className="hover:text-[#26ccff] transition duration-200 uppercase"
+           className="hover:text-[#811cf4] transition duration-500 hover:scale-120 uppercase"
           >
             CHARACTERS
           </a>
           <a
             href="#spells"
-            className="hover:text-[#26ccff] transition duration-200 uppercase"
+            className="hover:text-[#811cf4] transition duration-500 hover:scale-120 uppercase"
           >
             SPELLS
           </a>
@@ -46,7 +46,7 @@ function Navbar() {
         {/* Mobile Menu Button */}
         <button
           onClick={toggleMenu}
-          className="md:hidden hover:text-[#26ccff] transition absolute right-6"
+          className="md:hidden hover:text-[#811cf4] transition absolute right-6"
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
@@ -62,28 +62,28 @@ function Navbar() {
           <a
             href="#home"
             onClick={() => setIsOpen(false)}
-            className="hover:text-[#26ccff] uppercase"
+            className="hover:text-[#811cf4] transition duration-500 hover:scale-120 uppercase"
           >
             HOME
           </a>
           <a
             href="#about"
             onClick={() => setIsOpen(false)}
-            className="hover:text-[#26ccff] uppercase"
+            className="hover:text-[#811cf4] transition duration-500 hover:scale-120 uppercase"
           >
             ABOUT
           </a>
           <a
             href="#characters"
             onClick={() => setIsOpen(false)}
-            className="hover:text-[#26ccff] uppercase"
+            className="hover:text-[#811cf4] transition duration-500 hover:scale-120 uppercase"
           >
             CHARACTERS
           </a>
           <a
             href="#spells"
             onClick={() => setIsOpen(false)}
-            className="hover:text-[#26ccff] uppercase"
+            className="hover:text-[#811cf4] transition duration-500 hover:scale-120 uppercase"
           >
             SPELLS
           </a>
